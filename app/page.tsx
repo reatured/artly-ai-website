@@ -4,43 +4,53 @@ import { Footer } from "@/components/layout/Footer";
 import { GlassPanel } from "@/components/ui/GlassPanel";
 import { SectionDivider } from "@/components/ui/SectionDivider";
 import { MetricCard } from "@/components/ui/MetricCard";
+import { VideoPlayer } from "@/components/ui/VideoPlayer";
+
+const BANNER_HLS  = "https://bluehill-website-public.s3.us-west-2.amazonaws.com/artly-ai/compagin/master.m3u8";
+const EXPLAINER_HLS = "https://bluehill-website-public.s3.us-west-2.amazonaws.com/artly-ai/explainer/explainer/master.m3u8";
+const VIDEO_FALLBACK = "https://bluehill-website-public.s3.us-west-2.amazonaws.com/artly-ai/explainer/video.mp4";
+
+const partners = [
+  { name: "MUJI",       src: "/images/partners/muji.webp" },
+  { name: "Tesla",      src: "/images/partners/tesla.webp" },
+  { name: "Microsoft",  src: "/images/partners/microsoft.webp" },
+  { name: "Salesforce", src: "/images/partners/salesforce.webp" },
+  { name: "Cisco",      src: "/images/partners/cisco.svg" },
+  { name: "Intel",      src: "/images/partners/intel.svg" },
+  { name: "Nvidia",     src: "/images/partners/nvidia.png" },
+  { name: "McKinsey",   src: "/images/partners/mckinsey.svg" },
+  { name: "Workday",    src: "/images/partners/workday.webp" },
+];
 
 export default function Home() {
   return (
     <div className="bg-background text-on-background min-h-screen flex flex-col antialiased">
       <TopBanner />
       <NavBar variant="home" />
+
       <main className="flex-grow pt-[160px] pb-xxl px-gutter max-w-container-max mx-auto w-full cinematic-bg">
 
-        {/* ── Section 1: Hero ── */}
+        {/* ── Hero ── */}
         <section className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-xxl">
-          {/* Left: copy */}
           <div className="lg:col-span-6 flex flex-col gap-8">
-            {/* Status tag */}
             <div className="flex items-center gap-3">
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-fixed opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary-fixed"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-fixed opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary-fixed" />
               </span>
               <span className="font-label-caps text-label-caps text-on-surface-variant tracking-widest">
                 FUTURISTIC · FLUID · CINEMATIC
               </span>
             </div>
-
-            {/* Headline */}
             <h1 className="font-display-lg text-display-lg text-on-background">
               The training layer for physical AI{" "}
               <span className="text-primary-fixed">skills.</span>
             </h1>
-
-            {/* Body */}
-            <p className="font-body-lg text-body-lg text-on-surface-variant max-w-lg">
-              Artly&apos;s proprietary AI platform lets robots learn real-world tasks in
-              under 30 minutes — bridging the simulation-to-real gap at production
-              scale.
+            <p className="font-body-lg text-body-lg text-on-surface-variant max-w-[520px]">
+              Artly&apos;s proprietary AI platform lets robots learn real-world skills in just 30 minutes.
+              By learning directly from human demonstrations, our robots perform precise, repeatable
+              actions at commercial scale.
             </p>
-
-            {/* CTAs */}
             <div className="flex flex-wrap gap-4">
               <button className="bg-primary-fixed text-on-primary-fixed px-8 py-3 rounded-full font-label-caps text-label-caps hover:bg-primary-fixed-dim transition-colors flex items-center gap-2">
                 Invest Now
@@ -48,248 +58,225 @@ export default function Home() {
               </button>
               <button className="border border-outline-variant text-on-surface-variant px-8 py-3 rounded-full font-label-caps text-label-caps hover:border-primary-fixed hover:text-primary-fixed transition-colors flex items-center gap-2">
                 Download Investor Brief
-                <span className="material-symbols-outlined text-[16px]">arrow_right_alt</span>
+                <span className="material-symbols-outlined text-[16px]">arrow_outward</span>
               </button>
             </div>
           </div>
 
-          {/* Right: Live Metrics panel */}
           <div className="lg:col-span-5 lg:col-start-8">
             <GlassPanel glow className="p-lg flex flex-col gap-6">
-              {/* Header row */}
               <div className="flex items-center justify-between">
                 <span className="bg-primary-fixed/10 text-primary-fixed font-label-caps text-label-caps px-3 py-1 rounded-full border border-primary-fixed/20">
                   Live metrics
                 </span>
-                <span className="font-label-caps text-label-caps text-on-surface-variant">
-                  Platform Growth
-                </span>
+                <span className="font-label-caps text-label-caps text-on-surface-variant">Platform Growth</span>
               </div>
-
-              {/* 2×2 metric grid */}
               <div className="grid grid-cols-2 gap-3">
-                <MetricCard
-                  label="DRINKS SERVED"
-                  value="1M+"
-                  description="drinks served"
-                />
-                <MetricCard
-                  label="REVENUE"
-                  value="$5M"
-                  description="revenue generated"
-                />
-                <MetricCard
-                  label="PARTNERSHIPS"
-                  value="Fortune 500"
-                  description="Deployed with Fortune 500 partners"
-                />
-                <MetricCard
-                  label="LEADERSHIP"
-                  value="Amazon Exit"
-                  description="Founder with a prior Amazon acquisition"
-                />
+                <MetricCard label="DRINKS SERVED"  value="1M+"         description="drinks served" />
+                <MetricCard label="REVENUE"        value="$5M"         description="revenue generated" />
+                <MetricCard label="PARTNERSHIPS"   value="Fortune 500" description="Deployed with Fortune 500 partners" />
+                <MetricCard label="LEADERSHIP"     value="Amazon Exit" description="Founder with a prior Amazon acquisition" />
               </div>
             </GlassPanel>
           </div>
         </section>
 
+        {/* ── Campaign Video ── */}
+        <section className="mb-xxl">
+          <div className="relative w-full rounded-xl overflow-hidden border border-outline-variant/20 aspect-video">
+            <VideoPlayer
+              id="banner-video"
+              hlsSrc={BANNER_HLS}
+              fallbackSrc={VIDEO_FALLBACK}
+              poster="/images/video-banner-poster.jpg"
+              showControls={false}
+              intersectionThreshold={0.3}
+              className="w-full h-full object-cover"
+            />
+          </div>
+        </section>
+
         <SectionDivider />
 
-        {/* ── Section 2: Robot School ── */}
-        <section id="robot-school" className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center my-xxl">
-          {/* Left: copy */}
-          <div className="flex flex-col gap-6">
-            <h2 className="font-headline-md text-headline-md text-on-background">
-              Robot School
-            </h2>
-            <p className="font-body-lg text-body-lg text-on-surface-variant">
-              Artly&apos;s Robot School is a comprehensive AGI system that bridges the
-              sim-to-real gap — enabling robots to acquire complex manipulation
-              skills rapidly without costly real-world trial and error. Our
-              proprietary VLA (Vision-Language-Action) models translate high-level
-              instructions into precise physical actions, reducing training time
-              from months to minutes.
-            </p>
-          </div>
-
-          {/* Right: Press card */}
-          <div>
+        {/* ── Robot School ── */}
+        <section id="robot-school" className="my-xxl flex flex-col gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="flex flex-col gap-6">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-primary-fixed" />
+                <span className="font-label-caps text-label-caps text-on-surface-variant tracking-widest text-[10px]">FOUNDATION</span>
+              </div>
+              <h2 className="font-display-lg text-[36px] font-bold text-primary leading-tight">Robot School</h2>
+              <p className="font-body-lg text-body-lg text-on-surface-variant">
+                Robot School, powered by Artly&apos;s AGI system, bridges the sim-to-real gap — delivering
+                complex manipulation skills with minimal tuning, faster deployment, and reliable
+                real-world performance.
+              </p>
+            </div>
             <GlassPanel glow className="p-lg flex flex-col gap-4">
-              <span className="font-label-caps text-label-caps text-on-surface-variant">
-                GeekWire · April 2026
-              </span>
-              <h3 className="font-headline-md text-headline-sm text-on-background leading-snug">
-                The Breakthrough That Could Change How Robots Learn
+              <span className="font-label-caps text-label-caps text-primary-fixed">GeekWire · April 2026</span>
+              <h3 className="font-headline-sm text-[24px] font-bold text-primary">
+                &ldquo;The Breakthrough That Could Change How Robots Learn&rdquo;
               </h3>
               <p className="font-body-md text-body-md text-on-surface-variant">
-                How Artly AI&apos;s sim-to-real platform is compressing years of robotic
-                training into a single afternoon — and why the industry is taking
-                notice.
+                Artly AI&apos;s founder and CEO shares how our foundation world models enable robots to
+                learn new skills from a single human demonstration.
               </p>
-              <a
-                href="https://www.geekwire.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 text-primary-fixed font-label-caps text-label-caps hover:underline mt-2 w-fit"
-              >
+              <a href="https://www.geekwire.com" target="_blank" rel="noopener noreferrer"
+                className="flex items-center gap-1 text-primary-fixed font-label-caps text-label-caps hover:text-primary-fixed-dim transition-colors w-fit mt-2">
                 Read more on GeekWire
-                <span className="material-symbols-outlined text-[16px]">arrow_outward</span>
+                <span className="material-symbols-outlined text-[14px]">arrow_outward</span>
               </a>
             </GlassPanel>
           </div>
+
+          {/* Explainer video */}
+          <div className="relative w-full rounded-xl overflow-hidden border border-outline-variant/20 aspect-video">
+            <VideoPlayer
+              id="robot-learning-video"
+              hlsSrc={EXPLAINER_HLS}
+              fallbackSrc={VIDEO_FALLBACK}
+              poster="/images/video-explainer-poster.jpg"
+              showControls={true}
+              intersectionThreshold={0.3}
+              className="w-full h-full object-cover"
+            />
+          </div>
         </section>
 
         <SectionDivider />
 
-        {/* ── Section 3: Applications ── */}
+        {/* ── Applications ── */}
         <section id="applications" className="my-xxl flex flex-col gap-12">
-          <h2 className="font-headline-md text-headline-md text-on-background text-center">
-            Applications
-          </h2>
+          <h2 className="font-display-lg text-[36px] font-bold text-primary text-center">Applications</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Barista Bot */}
-            <div className="glass-panel p-lg rounded-xl border border-outline-variant/30 flex flex-col gap-4 relative overflow-hidden">
-              <div className="flex flex-col gap-2">
-                <span className="font-label-caps text-label-caps text-primary-fixed">Barista Bot</span>
-                <h3 className="font-headline-md text-headline-sm text-on-background">Barista Bot</h3>
+            {[
+              {
+                tag: "Barista Bot",
+                title: "Barista Bot",
+                img: "/images/apps-barista-bot.png",
+                desc: "Artly's Barista Bot is an AI-powered robotic coffee system that delivers consistent, barista-quality espresso drinks at scale. Designed for high-traffic environments, it automates the entire coffee-making process.",
+                comingSoon: false,
+              },
+              {
+                tag: "Bartender Bot",
+                title: "Bartender Bot",
+                img: "/images/apps-bartender-bot.png",
+                desc: "Bartender Bot is an intelligent robotic cocktail system that mixes drinks with speed and precision. Built for hospitality and entertainment venues, it delivers consistent cocktails and reduces waste.",
+                comingSoon: false,
+              },
+              {
+                tag: "Coming Soon",
+                title: "Teaism Bot",
+                img: "/images/apps-tea-bot.png",
+                desc: "Teaism Bot is an AI-driven tea-brewing system that precisely controls temperature, steep time, and pouring. Designed for premium tea environments, it ensures consistent flavor at scale.",
+                comingSoon: true,
+              },
+            ].map(({ tag, title, img, desc, comingSoon }) => (
+              <div key={title} className="glass-panel rounded-xl border border-outline-variant/30 flex flex-col overflow-hidden">
+                <div className="relative h-48 overflow-hidden">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={img} alt={title} className="w-full h-full object-cover" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-surface-container-highest/80 to-transparent" />
+                </div>
+                <div className="p-lg flex flex-col gap-3 flex-grow">
+                  <span className={`font-label-caps text-[10px] ${comingSoon ? "text-on-surface-variant" : "text-primary-fixed"}`}>{tag}</span>
+                  <h3 className="font-headline-sm text-[20px] font-bold text-primary">{title}</h3>
+                  <p className="font-body-md text-body-md text-on-surface-variant">{desc}</p>
+                </div>
               </div>
-              <p className="font-body-md text-body-md text-on-surface-variant flex-grow">
-                Artly&apos;s Barista Bot is an AI-powered robotic coffee system that
-                brews specialty drinks with barista-level precision — fully
-                autonomous, compact, and deployable in any commercial space.
-              </p>
-            </div>
-
-            {/* Bartender Bot */}
-            <div className="glass-panel p-lg rounded-xl border border-outline-variant/30 flex flex-col gap-4 relative overflow-hidden">
-              <div className="flex flex-col gap-2">
-                <span className="font-label-caps text-label-caps text-primary-fixed">Bartender Bot</span>
-                <h3 className="font-headline-md text-headline-sm text-on-background">Bartender Bot</h3>
-              </div>
-              <p className="font-body-md text-body-md text-on-surface-variant flex-grow">
-                Bartender Bot is an intelligent robotic cocktail system that mixes
-                and serves craft drinks with consistency and speed — elevating
-                hospitality experiences without the overhead of human bartenders.
-              </p>
-            </div>
-
-            {/* Teaism Bot */}
-            <div className="glass-panel p-lg rounded-xl border border-outline-variant/30 flex flex-col gap-4 relative overflow-hidden">
-              <div className="flex flex-col gap-2">
-                <span className="font-label-caps text-label-caps text-on-surface-variant">Coming Soon</span>
-                <h3 className="font-headline-md text-headline-sm text-on-background">Teaism Bot</h3>
-              </div>
-              <p className="font-body-md text-body-md text-on-surface-variant flex-grow">
-                Teaism Bot is an AI-driven tea-brewing system that faithfully
-                recreates traditional preparation rituals — bringing artisan-quality
-                tea service to modern environments at scale.
-              </p>
-            </div>
+            ))}
           </div>
 
-          {/* Case study link */}
           <div className="flex justify-center">
-            <a
-              href="#"
-              className="flex items-center gap-2 border border-outline-variant/50 px-8 py-3 rounded-full font-label-caps text-label-caps text-on-surface-variant hover:border-primary-fixed hover:text-primary-fixed transition-colors"
-            >
+            <a href="#" className="flex items-center gap-2 border border-primary-fixed px-6 py-2 rounded-full font-label-caps text-label-caps text-primary-fixed hover:bg-primary-fixed/10 transition-colors">
               Case Study: Artly Coffee
-              <span className="material-symbols-outlined text-[16px]">arrow_outward</span>
+              <span className="material-symbols-outlined text-[14px]">arrow_outward</span>
             </a>
           </div>
         </section>
 
         <SectionDivider />
 
-        {/* ── Section 4: Customization ── */}
+        {/* ── Customization ── */}
         <section id="customization" className="my-xxl flex flex-col gap-12">
-          <h2 className="font-headline-md text-headline-md text-on-background">
-            Customization
-          </h2>
+          <h2 className="font-display-lg text-[36px] font-bold text-primary">Customization</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="glass-panel p-lg rounded-xl border border-outline-variant/30 flex flex-col gap-4 relative overflow-hidden">
-              <h3 className="font-headline-md text-headline-sm text-on-background">The Labor Crisis</h3>
-              <p className="font-body-md text-body-md text-on-surface-variant">
-                Customize robots to fill specific labor gaps across your
-                operation — from front-of-house service to back-of-house
-                production — with role-specific training profiles deployed in
-                minutes.
-              </p>
-            </div>
-
-            <div className="glass-panel p-lg rounded-xl border border-outline-variant/30 flex flex-col gap-4 relative overflow-hidden">
-              <h3 className="font-headline-md text-headline-sm text-on-background">The Rise of Robots</h3>
-              <p className="font-body-md text-body-md text-on-surface-variant">
-                Configure robots for different environments — retail, hospitality,
-                healthcare, and beyond — with adaptive skill sets that evolve as
-                your operational needs change.
-              </p>
-            </div>
-
-            <div className="glass-panel p-lg rounded-xl border border-outline-variant/30 flex flex-col gap-4 relative overflow-hidden">
-              <h3 className="font-headline-md text-headline-sm text-on-background">Manipulation</h3>
-              <p className="font-body-md text-body-md text-on-surface-variant">
-                Train robots for task-specific manipulation — pick-and-place,
-                pour, stir, assemble — using Artly&apos;s VLA models that generalize
-                across objects and configurations without retraining from scratch.
-              </p>
-            </div>
+            {[
+              {
+                title: "The Labor Crisis",
+                img: "/images/customization-labor.svg",
+                desc: "Customize robots to fill specific labor gaps—adapting workflows, operating hours, and skill sets to meet local staffing needs and business constraints.",
+              },
+              {
+                title: "The Rise of Robots",
+                img: "/images/customization-humanoids.svg",
+                desc: "Configure robots for different environments and use cases, enabling flexible deployment across tasks without redesigning spaces or rebuilding systems.",
+              },
+              {
+                title: "Manipulation",
+                img: "/images/customization-manipulation.svg",
+                desc: "Train robots for task-specific manipulation—customizing motions, tools, and interactions to achieve precise, reliable real-world performance.",
+              },
+            ].map(({ title, img, desc }) => (
+              <div key={title} className="glass-panel p-lg rounded-xl border border-outline-variant/30 flex flex-col gap-4 bg-surface-container-low/50">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={img} alt={title} className="h-16 w-16 object-contain" />
+                <h3 className="font-headline-sm text-[20px] font-bold text-primary">{title}</h3>
+                <p className="font-body-md text-body-md text-on-surface-variant">{desc}</p>
+              </div>
+            ))}
           </div>
         </section>
 
         <SectionDivider />
 
-        {/* ── Section 5: Production Traction ── */}
+        {/* ── Production Traction ── */}
         <section className="my-xxl flex flex-col gap-12">
-          <div className="flex flex-col gap-4 max-w-2xl">
-            <span className="font-label-caps text-label-caps text-primary-fixed">Traction</span>
-            <h2 className="font-headline-md text-headline-md text-on-background">
+          <div className="flex flex-col gap-4">
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-primary-fixed" />
+              <span className="font-label-caps text-label-caps text-on-surface-variant tracking-widest text-[10px]">PROOF</span>
+            </div>
+            <h2 className="font-display-lg text-[36px] font-bold text-primary leading-tight">
               Production traction, not demos
             </h2>
-            <p className="font-body-lg text-body-lg text-on-surface-variant">
-              Artly robots are live in enterprise environments today — not in
-              controlled lab settings. Our fleet handles millions of real-world
-              interactions every month.
+            <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+              Evidence the platform works in the wild — throughput, customers, and repeatable operations.
             </p>
           </div>
 
-          {/* Bento grid */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             {[
-              { value: "30+", label: "ROBOTS DEPLOYED" },
-              { value: "1M+", label: "CUPS SERVED" },
-              { value: "Multi-site", label: "ENTERPRISE ROLLOUTS" },
-              { value: "Hours", label: "TIME TO TRAIN" },
-            ].map(({ value, label }) => (
-              <div
-                key={label}
-                className="glass-panel p-lg rounded-xl border border-outline-variant/30 flex flex-col gap-3 relative overflow-hidden bg-gradient-to-br from-surface-container-high/80 to-transparent"
-              >
-                <div className="font-display-lg text-[36px] font-bold text-primary-fixed leading-none">
-                  {value}
-                </div>
-                <div className="font-label-caps text-label-caps text-on-surface-variant">
-                  {label}
-                </div>
+              { value: "30+",        label: "ROBOTS DEPLOYED",     desc: "Operating in live environments with uptime requirements." },
+              { value: "1M+",        label: "CUPS SERVED",         desc: "Real-world repetition creates compounding training data." },
+              { value: "Multi-site", label: "ENTERPRISE ROLLOUTS", desc: "Designed for repeatable deployments across locations." },
+              { value: "Hours",      label: "TIME TO TRAIN",       desc: "Fast onboarding for new tasks and variations." },
+            ].map(({ value, label, desc }) => (
+              <div key={label} className="glass-panel p-lg rounded-xl border border-outline-variant/30 flex flex-col gap-3 bg-gradient-to-br from-surface-container-high/80 to-transparent">
+                <div className="font-display-lg text-[40px] font-bold text-primary">{value}</div>
+                <div className="font-label-caps text-label-caps text-on-surface-variant tracking-wider">{label}</div>
+                <div className="font-body-md text-[14px] text-on-surface-variant">{desc}</div>
               </div>
             ))}
           </div>
 
-          {/* Partner pills */}
-          <div className="flex flex-col gap-4">
-            <span className="font-label-caps text-label-caps text-on-surface-variant">
+          {/* Partner logos */}
+          <div className="flex flex-col gap-6">
+            <span className="font-label-caps text-[12px] text-on-surface-variant tracking-wider uppercase">
               Robot Currently Deployed With
             </span>
-            <div className="flex flex-wrap gap-3">
-              {["MUJI", "Tesla", "Microsoft", "Salesforce", "Enterprise", "+ Partners"].map((name) => (
-                <span
+            <div className="flex flex-wrap items-center gap-8 opacity-60 hover:opacity-100 transition-opacity duration-500">
+              {partners.map(({ name, src }) => (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
                   key={name}
-                  className="px-8 py-3 rounded-full border border-outline-variant/40 text-on-surface-variant font-label-caps text-[11px] bg-surface-container-lowest/50"
-                >
-                  {name}
-                </span>
+                  src={src}
+                  alt={`${name} logo`}
+                  className="h-7 object-contain grayscale brightness-200 hover:grayscale-0 hover:brightness-100 transition-all duration-300"
+                />
               ))}
             </div>
           </div>
@@ -297,88 +284,72 @@ export default function Home() {
 
         <SectionDivider />
 
-        {/* ── Section 6: Hardware ── */}
+        {/* ── Hardware ── */}
         <section id="hardware" className="my-xxl flex flex-col gap-12">
-          <h2 className="font-headline-md text-headline-md text-on-background text-center">
-            Hardwares
-          </h2>
+          <h2 className="font-display-lg text-[36px] font-bold text-primary text-center">Hardwares</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="glass-panel p-lg rounded-xl border border-outline-variant/30 flex flex-col gap-4 relative overflow-hidden">
-              <span className="font-label-caps text-label-caps text-primary-fixed">Barista Bot</span>
-              <p className="font-body-md text-body-md text-on-surface-variant">
-                Consistent, Cost-Effective Coffee Automation. A compact,
-                AI-powered robotic barista purpose-built for high-volume
-                commercial deployment with zero downtime.
-              </p>
-            </div>
-
-            <div className="glass-panel p-lg rounded-xl border border-outline-variant/30 flex flex-col gap-4 relative overflow-hidden">
-              <span className="font-label-caps text-label-caps text-primary-fixed">Artly Humanoid Robot Gen1</span>
-              <p className="font-body-md text-body-md text-on-surface-variant">
-                Next-Generation Dual-Arm Humanoid Service Robot. Designed for
-                general-purpose service tasks, our Gen1 humanoid brings
-                human-like dexterity to real-world environments.
-              </p>
-            </div>
-
-            <div className="glass-panel p-lg rounded-xl border border-outline-variant/30 flex flex-col gap-4 relative overflow-hidden">
-              <span className="font-label-caps text-label-caps text-primary-fixed">Artly AI Arm</span>
-              <p className="font-body-md text-body-md text-on-surface-variant">
-                Robotic Arm with VLA. A modular robotic arm powered by
-                Vision-Language-Action models — adaptable to any workstation
-                and trainable in under an hour.
-              </p>
-            </div>
+            {[
+              {
+                title: "Barista Bot",
+                img: "/images/hardware-barista.png",
+                desc: "Consistent, Cost-Effective Coffee Automation. AI-powered robotic arm that functions as a barista, making various coffee drinks and pouring latte art.",
+              },
+              {
+                title: "Artly Humanoid Robot Gen1",
+                img: "/images/hardware-humanoid.png",
+                desc: "Next-Generation Dual-Arm Humanoid Service Robot. Autonomous Mobile Platform + AI Vision + High-Precision Collaborative Arms.",
+              },
+              {
+                title: "Artly AI Arm",
+                img: "/images/hardware-arm.png",
+                desc: "Robotic Arm with VLA. Combines a 6-DoF arm, vision camera, and adaptive gripper — adaptable to any workstation.",
+              },
+            ].map(({ title, img, desc }) => (
+              <div key={title} className="glass-panel rounded-xl border border-outline-variant/30 flex flex-col overflow-hidden text-center">
+                <div className="relative h-56 bg-surface-container-highest/40 overflow-hidden">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={img} alt={title} className="w-full h-full object-cover" />
+                </div>
+                <div className="p-lg flex flex-col gap-2">
+                  <h3 className="font-headline-sm text-[20px] font-bold text-primary">{title}</h3>
+                  <p className="font-body-md text-[14px] text-on-surface-variant">{desc}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </section>
 
         <SectionDivider />
 
-        {/* ── Section 7: Contact Form ── */}
-        <section className="my-xxl">
-          <div className="max-w-2xl mx-auto">
-            <GlassPanel className="p-xl flex flex-col gap-8">
-              <h2 className="font-headline-md text-headline-md text-on-background text-center">
-                Contact Artly
-              </h2>
-
-              <form className="flex flex-col gap-6">
-                {/* Name / Email */}
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="contact-info" className="font-label-caps text-label-caps text-on-surface-variant">
-                    Information
-                  </label>
-                  <input
-                    id="contact-info"
-                    type="text"
-                    placeholder="Your Name or Email"
-                    className="bg-surface-container border border-outline-variant/50 rounded-lg px-4 py-3 font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant/50 focus:outline-none focus:border-primary-fixed transition-colors"
-                  />
-                </div>
-
-                {/* Message */}
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="contact-message" className="font-label-caps text-label-caps text-on-surface-variant">
-                    Message
-                  </label>
-                  <textarea
-                    id="contact-message"
-                    placeholder="How can we help?"
-                    rows={4}
-                    className="bg-surface-container border border-outline-variant/50 rounded-lg px-4 py-3 font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant/50 focus:outline-none focus:border-primary-fixed transition-colors resize-none"
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="bg-primary-fixed text-on-primary-fixed px-8 py-3 rounded-full font-label-caps text-label-caps hover:bg-primary-fixed-dim transition-colors self-center"
-                >
-                  Send Message
-                </button>
-              </form>
-            </GlassPanel>
-          </div>
+        {/* ── Contact ── */}
+        <section className="my-xxl max-w-2xl mx-auto w-full">
+          <GlassPanel className="p-xl flex flex-col gap-8">
+            <h2 className="font-display-lg text-[28px] font-bold text-primary text-center">Contact Artly</h2>
+            <form className="flex flex-col gap-6">
+              <div className="flex flex-col gap-2">
+                <label htmlFor="contact-info" className="font-label-caps text-label-caps text-on-surface-variant">Information</label>
+                <input
+                  id="contact-info"
+                  type="text"
+                  placeholder="Your Name or Email"
+                  className="bg-surface border border-outline-variant/50 rounded-lg px-4 py-3 font-body-md text-body-md text-primary placeholder:text-on-surface-variant/50 focus:outline-none focus:border-primary-fixed transition-colors"
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <label htmlFor="contact-message" className="font-label-caps text-label-caps text-on-surface-variant">Message</label>
+                <textarea
+                  id="contact-message"
+                  placeholder="How can we help?"
+                  rows={4}
+                  className="bg-surface border border-outline-variant/50 rounded-lg px-4 py-3 font-body-md text-body-md text-primary placeholder:text-on-surface-variant/50 focus:outline-none focus:border-primary-fixed transition-colors resize-none"
+                />
+              </div>
+              <button type="submit" className="bg-primary-fixed text-on-primary-fixed px-6 py-3 rounded-full font-label-caps text-label-caps hover:bg-primary-fixed-dim transition-colors self-center">
+                Send Message
+              </button>
+            </form>
+          </GlassPanel>
         </section>
 
       </main>

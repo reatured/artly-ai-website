@@ -1,6 +1,6 @@
 interface MetricCardProps {
   label: string;
-  value: string;
+  value: React.ReactNode;
   description: string;
 }
 

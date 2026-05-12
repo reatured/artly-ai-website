@@ -5,6 +5,7 @@ import { GlassPanel } from "@/components/ui/GlassPanel";
 import { SectionDivider } from "@/components/ui/SectionDivider";
 import { MetricCard } from "@/components/ui/MetricCard";
 import { VideoPlayer } from "@/components/ui/VideoPlayer";
+import { LiveItemCount } from "@/components/ui/LiveItemCount";
 
 const BANNER_HLS  = "https://bluehill-website-public.s3.us-west-2.amazonaws.com/artly-ai/compagin/master.m3u8";
 const EXPLAINER_HLS = "https://bluehill-website-public.s3.us-west-2.amazonaws.com/artly-ai/explainer/explainer/master.m3u8";
@@ -72,7 +73,7 @@ export default function Home() {
                 <span className="font-label-caps text-label-caps text-on-surface-variant">Platform Growth</span>
               </div>
               <div className="grid grid-cols-2 gap-3">
-                <MetricCard label="DRINKS SERVED"  value="1M+"         description="drinks served" />
+                <MetricCard label="DRINKS SERVED"  value={<LiveItemCount fallback="1M+" />} description="drinks served" />
                 <MetricCard label="REVENUE"        value="$5M"         description="revenue generated" />
                 <MetricCard label="PARTNERSHIPS"   value="Fortune 500" description="Deployed with Fortune 500 partners" />
                 <MetricCard label="LEADERSHIP"     value="Amazon Exit" description="Founder with a prior Amazon acquisition" />
@@ -99,7 +100,7 @@ export default function Home() {
         <SectionDivider />
 
         {/* ── Robot School ── */}
-        <section id="robot-school" className="my-xxl flex flex-col gap-12">
+        <section id="robot-school" className="my-xxl flex flex-col gap-12 scroll-mt-[140px]">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="flex flex-col gap-6">
               <div className="flex items-center gap-2">
@@ -122,7 +123,7 @@ export default function Home() {
                 Artly AI&apos;s founder and CEO shares how our foundation world models enable robots to
                 learn new skills from a single human demonstration.
               </p>
-              <a href="https://www.geekwire.com" target="_blank" rel="noopener noreferrer"
+              <a href="https://www.geekwire.com/sponsor-post/the-breakthrough-that-could-change-how-robots-learn/" target="_blank" rel="noopener noreferrer"
                 className="flex items-center gap-1 text-primary-fixed font-label-caps text-label-caps hover:text-primary-fixed-dim transition-colors w-fit mt-2">
                 Read more on GeekWire
                 <span className="material-symbols-outlined text-[14px]">arrow_outward</span>
@@ -147,7 +148,7 @@ export default function Home() {
         <SectionDivider />
 
         {/* ── Applications ── */}
-        <section id="applications" className="my-xxl flex flex-col gap-12">
+        <section id="applications" className="my-xxl flex flex-col gap-12 scroll-mt-[140px]">
           <h2 className="font-display-lg text-[36px] font-bold text-primary text-center">Applications</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -200,7 +201,7 @@ export default function Home() {
         <SectionDivider />
 
         {/* ── Customization ── */}
-        <section id="customization" className="my-xxl flex flex-col gap-12">
+        <section id="customization" className="my-xxl flex flex-col gap-12 scroll-mt-[140px]">
           <h2 className="font-display-lg text-[36px] font-bold text-primary">Customization</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -285,7 +286,7 @@ export default function Home() {
         <SectionDivider />
 
         {/* ── Hardware ── */}
-        <section id="hardware" className="my-xxl flex flex-col gap-12">
+        <section id="hardware" className="my-xxl flex flex-col gap-12 scroll-mt-[140px]">
           <h2 className="font-display-lg text-[36px] font-bold text-primary text-center">Hardwares</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -307,9 +308,9 @@ export default function Home() {
               },
             ].map(({ title, img, desc }) => (
               <div key={title} className="glass-panel rounded-xl border border-outline-variant/30 flex flex-col overflow-hidden text-center">
-                <div className="relative h-56 bg-surface-container-highest/40 overflow-hidden">
+                <div className="relative h-64 bg-surface-container-lowest overflow-hidden flex items-center justify-center p-4">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={img} alt={title} className="w-full h-full object-cover" />
+                  <img src={img} alt={title} className="max-w-full max-h-full object-contain" />
                 </div>
                 <div className="p-lg flex flex-col gap-2">
                   <h3 className="font-headline-sm text-[20px] font-bold text-primary">{title}</h3>

@@ -73,6 +73,7 @@ export function VideoPlayer({
       className={className}
       poster={poster}
       muted
+      autoPlay
       playsInline
       loop
       controls={showControls}

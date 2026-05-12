@@ -100,7 +100,7 @@ Multi-agent build log. Each task shows owner, status, and outcome.
 ## Pending / Backlog
 
 - [ ] Migrate Google Fonts `<link>` to `next/font/google` (zero-CLS performance win)
-- [ ] Mobile hamburger menu for NavBar (hidden on < lg currently)
+- [x] Mobile hamburger menu for NavBar — animated 3-bar → X toggle, glass dropdown with all nav links
 - [ ] Wire up contact form (needs server action or API route — currently static)
 - [ ] Add live countdown timer to TopBanner (currently shows "00" placeholders)
 - [ ] SEO meta tags: `og:image`, `og:description`, Twitter card

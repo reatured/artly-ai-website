@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { asset } from "@/lib/asset";
 
 interface NavBarProps {
   variant?: "home" | "inner";
@@ -82,7 +83,7 @@ export function NavBar({ variant = "home", activeLink }: NavBarProps) {
           {/* White text + swoosh (base) */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/images/artly-logo.png"
+            src={asset("/images/artly-logo.png")}
             alt="Artly AI"
             className="block h-full w-auto"
             style={{ filter: "brightness(0) invert(1)" }}
@@ -90,7 +91,7 @@ export function NavBar({ variant = "home", activeLink }: NavBarProps) {
           {/* Original yellow swoosh overlay — right ~22% of the logo */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/images/artly-logo.png"
+            src={asset("/images/artly-logo.png")}
             alt=""
             aria-hidden
             className="absolute inset-0 block h-full w-auto pointer-events-none"

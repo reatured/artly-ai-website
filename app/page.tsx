@@ -6,6 +6,7 @@ import { SectionDivider } from "@/components/ui/SectionDivider";
 import { MetricCard } from "@/components/ui/MetricCard";
 import { VideoPlayer } from "@/components/ui/VideoPlayer";
 import { LiveItemCount } from "@/components/ui/LiveItemCount";
+import { asset } from "@/lib/asset";
 
 const BANNER_HLS  = "https://bluehill-website-public.s3.us-west-2.amazonaws.com/artly-ai/compagin/master.m3u8";
 const EXPLAINER_HLS = "https://bluehill-website-public.s3.us-west-2.amazonaws.com/artly-ai/explainer/explainer/master.m3u8";
@@ -89,7 +90,7 @@ export default function Home() {
               id="banner-video"
               hlsSrc={BANNER_HLS}
               fallbackSrc={VIDEO_FALLBACK}
-              poster="/images/video-banner-poster.jpg"
+              poster={asset("/images/video-banner-poster.jpg")}
               showControls={false}
               intersectionThreshold={0.3}
               className="w-full h-full object-cover"
@@ -137,7 +138,7 @@ export default function Home() {
               id="robot-learning-video"
               hlsSrc={EXPLAINER_HLS}
               fallbackSrc={VIDEO_FALLBACK}
-              poster="/images/video-explainer-poster.jpg"
+              poster={asset("/images/video-explainer-poster.jpg")}
               showControls={true}
               intersectionThreshold={0.3}
               className="w-full h-full object-cover"
@@ -178,7 +179,7 @@ export default function Home() {
               <div key={title} className="glass-panel rounded-xl border border-outline-variant/30 flex flex-col overflow-hidden">
                 <div className="relative h-48 overflow-hidden">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={img} alt={title} className="w-full h-full object-cover" />
+                  <img src={asset(img)} alt={title} className="w-full h-full object-cover" />
                   <div className="absolute inset-0 bg-gradient-to-t from-surface-container-highest/80 to-transparent" />
                 </div>
                 <div className="p-lg flex flex-col gap-3 flex-grow">
@@ -224,7 +225,7 @@ export default function Home() {
             ].map(({ title, img, desc }) => (
               <div key={title} className="glass-panel p-lg rounded-xl border border-outline-variant/30 flex flex-col gap-4 bg-surface-container-low/50">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={img} alt={title} className="h-16 w-16 object-contain" />
+                <img src={asset(img)} alt={title} className="h-16 w-16 object-contain" />
                 <h3 className="font-headline-sm text-[20px] font-bold text-primary">{title}</h3>
                 <p className="font-body-md text-body-md text-on-surface-variant">{desc}</p>
               </div>
@@ -274,7 +275,7 @@ export default function Home() {
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
                   key={name}
-                  src={src}
+                  src={asset(src)}
                   alt={`${name} logo`}
                   className="h-7 object-contain grayscale brightness-200 hover:grayscale-0 hover:brightness-100 transition-all duration-300"
                 />
@@ -310,7 +311,7 @@ export default function Home() {
               <div key={title} className="glass-panel rounded-xl border border-outline-variant/30 flex flex-col overflow-hidden text-center">
                 <div className="relative h-64 bg-surface-container-lowest overflow-hidden flex items-center justify-center p-4">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={img} alt={title} className="max-w-full max-h-full object-contain" />
+                  <img src={asset(img)} alt={title} className="max-w-full max-h-full object-contain" />
                 </div>
                 <div className="p-lg flex flex-col gap-2">
                   <h3 className="font-headline-sm text-[20px] font-bold text-primary">{title}</h3>

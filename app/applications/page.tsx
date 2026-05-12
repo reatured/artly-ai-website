@@ -1,5 +1,6 @@
 import { NavBar, Footer } from "@/components/layout";
 import { GlassPanel } from "@/components/ui/GlassPanel";
+import { asset } from "@/lib/asset";
 
 const applications = [
   {
@@ -95,7 +96,7 @@ export default function ApplicationsPage() {
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src={app.img}
+                    src={asset(app.img)}
                     alt={app.title}
                     className="max-w-full max-h-full object-contain"
                   />
